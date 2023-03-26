@@ -2,7 +2,6 @@
 com-android-application = "8.1.0-alpha10"
 org-jetbrains-kotlin-android = "1.7.20"
 core-ktx = "1.9.0"
-junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.3.1"
@@ -10,6 +9,13 @@ activity-compose = "1.5.1"
 compose-bom = "2022.10.00"
 hilt-version = "2.45"
 ktor-version = "2.2.4"
+mockk = "1.13.4"
+truth = "1.1.3"
+turbine = "0.12.0"
+junit = "5.9.2"
+coreTesting = "2.2.0"
+coroutines = "1.6.4"
+junit-plugin = "1.8.2.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -34,11 +40,22 @@ ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging-jvm", ver
 ktor-client-gson = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktor-version" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor-version" }
 
+mockk-core = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+junit-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+junit-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
+junit-vintage = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junit" }
+android-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
+coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 com-google-dagger-hilt-android =  { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
+junit5-plugin = { id = "de.mannodermaus.android-junit5", version.ref = "junit-plugin" }
 
 [bundles]
 ktor-client = [
@@ -49,3 +66,14 @@ ktor-client = [
     "ktor-client-content-negotiation"
 ]
 
+unit-test = [
+    "mockk-core",
+    "mockk-android",
+    "truth",
+    "turbine",
+    "junit-api",
+    "junit-engine",
+    "junit-params",
+    "android-core-testing",
+    "coroutine-test"
+]

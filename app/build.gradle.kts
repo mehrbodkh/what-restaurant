@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.dagger.hilt.android)
+    alias(libs.plugins.junit5.plugin)
 }
 
 android {
@@ -64,7 +65,7 @@ dependencies {
     implementation(libs.hilt.core)
     implementation(libs.bundles.ktor.client)
     kapt(libs.hilt.compiler)
-    testImplementation(libs.junit)
+    testImplementation(libs.bundles.unit.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
