@@ -1,4 +1,4 @@
-package com.mehrbod.whatrestaurant.ui.theme
+package com.mehrbod.whatrestaurant.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

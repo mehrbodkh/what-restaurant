@@ -1,4 +1,4 @@
-package com.mehrbod.whatrestaurant
+package com.mehrbod.whatrestaurant.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,22 +12,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class UiState(
-    val restaurants: List<Restaurant>? = null
+    val isLoading: Boolean,
+    val restaurants: List<Restaurant>? = null,
+    val errorMessage: String? = null,
 )
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val useCase: RestaurantsUseCase
 ) : ViewModel() {
-    val state = MutableStateFlow(UiState())
+    val state = MutableStateFlow(UiState(true))
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = useCase("ec4m")) {
-                is RestaurantsUseCase.Response.Failure -> {}
+                is RestaurantsUseCase.Response.Failure -> {
+                    state.update { it.copy(isLoading = false, errorMessage = result.message) }
+                }
                 is RestaurantsUseCase.Response.Success -> {
                     state.update {
-                        it.copy(restaurants = result.restaurants)
+                        it.copy(isLoading = false, restaurants = result.restaurants)
                     }
                 }
             }
