@@ -21,10 +21,10 @@ class RestaurantRepository @Inject constructor(
     sealed interface Response {
         data class Success(val restaurants: List<Restaurant>) : Response
 
-        sealed interface Failure : Response {
-            data class InternalServerError(val message: String) : Failure
-            data class InvalidRequest(val message: String) : Failure
-            data class Error(val message: String) : Failure
+        sealed class Failure(val errorMessage: String) : Response {
+            data class InternalServerError(val message: String) : Failure(message)
+            data class InvalidRequest(val message: String) : Failure(message)
+            data class Error(val message: String) : Failure(message)
         }
     }
 
