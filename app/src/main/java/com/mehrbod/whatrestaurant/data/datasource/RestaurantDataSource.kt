@@ -3,7 +3,8 @@ package com.mehrbod.whatrestaurant.data.datasource
 import com.google.gson.annotations.SerializedName
 
 data class RestaurantsResponse(
-    val restaurants: Restaurant
+    @SerializedName("Restaurants")
+    val restaurants: List<Restaurant>
 )
 
 data class Restaurant(

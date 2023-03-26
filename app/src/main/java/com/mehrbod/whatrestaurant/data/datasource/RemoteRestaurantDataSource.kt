@@ -11,7 +11,7 @@ class RemoteRestaurantDataSource @Inject constructor(
     private val client: HttpClient
 ) : RestaurantDataSource {
     override suspend fun getRestaurants() = withContext(Dispatchers.IO) {
-        client.get("https://uk.api.just-eat.io/restaurants/bypostcode/1053dh")
+        client.get("https://uk.api.just-eat.io/restaurants/bypostcode/ec4m")
             .body<RestaurantsResponse>()
     }
 }
