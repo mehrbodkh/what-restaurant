@@ -2,7 +2,7 @@ package com.mehrbod.whatrestaurant
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mehrbod.whatrestaurant.data.datasource.RestaurantsResponse
+import com.mehrbod.whatrestaurant.data.datasource.model.RestaurantsResponse
 import com.mehrbod.whatrestaurant.data.repository.RestaurantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
