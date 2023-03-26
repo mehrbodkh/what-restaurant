@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val state by viewModel.state.collectAsState()
-                    Greeting(state.restaurants?.restaurants?.toString() ?: "")
+                    Greeting(state.restaurants?.toString() ?: "")
                 }
             }
         }
