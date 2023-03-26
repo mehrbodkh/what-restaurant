@@ -39,6 +39,7 @@ ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serializati
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor-version" }
 ktor-client-gson = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktor-version" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor-version" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor-version" }
 
 mockk-core = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
@@ -75,5 +76,6 @@ unit-test = [
     "junit-engine",
     "junit-params",
     "android-core-testing",
-    "coroutine-test"
+    "coroutine-test",
+    "ktor-client-mock"
 ]
