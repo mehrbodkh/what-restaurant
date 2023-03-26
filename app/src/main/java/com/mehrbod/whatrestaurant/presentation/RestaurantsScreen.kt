@@ -43,7 +43,7 @@ fun RestaurantsScreen(
     ) { _ ->
         Column {
             if (state.isLoading) {
-                LinearProgressIndicator()
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
             SearchBar(text) { text = it }
             state.errorMessage?.let {
@@ -85,5 +85,5 @@ fun RestaurantsList(restaurants: List<Restaurant>) {
 @Composable
 fun RestaurantCard(restaurant: Restaurant) {
     Text(text = restaurant.name)
-    
+
 }

@@ -35,7 +35,9 @@ class RestaurantRepositoryTest {
 
         val result = repository.getRestaurants("test-postcode")
 
-        assertThat(result).isEqualTo(RestaurantRepository.Response.Failure.InternalServerError("Test error message"))
+        assertThat(result).isEqualTo(
+            RestaurantRepository.Response.Failure.InternalServerError("Test error message")
+        )
     }
 
     @Test
@@ -47,7 +49,9 @@ class RestaurantRepositoryTest {
 
         val result = repository.getRestaurants("test-postcode")
 
-        assertThat(result).isEqualTo(RestaurantRepository.Response.Failure.InvalidRequest("Test error message"))
+        assertThat(result).isEqualTo(
+            RestaurantRepository.Response.Failure.InvalidRequest("Test error message")
+        )
     }
 
     @Test
@@ -63,7 +67,9 @@ class RestaurantRepositoryTest {
 
     @Test
     fun `should return correct answer`() = runTest {
-        val restaurants = listOf(mockk<Restaurant>(relaxed = true))
+        val restaurants = listOf(mockk<Restaurant>(relaxed = true) {
+            every { isOpenNow } returns true
+        })
         coEvery { dataSource.getRestaurants(any()) } returns mockk {
             every { this@mockk.restaurants } returns restaurants
         }
@@ -71,5 +77,26 @@ class RestaurantRepositoryTest {
         val result = repository.getRestaurants("test-postcode")
 
         assertThat(result).isEqualTo(RestaurantRepository.Response.Success(restaurants))
+    }
+
+    @Test
+    fun `should filter out closed restaurants`() = runTest {
+        val restaurants = listOf(
+            mockk<Restaurant>(relaxed = true) {
+                every { isOpenNow } returns true
+            },
+            mockk(relaxed = true) {
+                every { isOpenNow } returns false
+            }
+        )
+        coEvery { dataSource.getRestaurants(any()) } returns mockk {
+            every { this@mockk.restaurants } returns restaurants
+        }
+
+        val result = repository.getRestaurants("test-postcode")
+
+        assertThat(result).isEqualTo(
+            RestaurantRepository.Response.Success(restaurants.filter { it.isOpenNow })
+        )
     }
 }

@@ -12,7 +12,9 @@ class RestaurantRepository @Inject constructor(
 
     suspend fun getRestaurants(postcode: String): Response {
         return try {
-            Response.Success(dataSource.getRestaurants(postcode).restaurants)
+            Response.Success(
+                dataSource.getRestaurants(postcode).restaurants.filter { it.isOpenNow }
+            )
         } catch (e: ServerResponseException) {
             e.toFailure()
         }
