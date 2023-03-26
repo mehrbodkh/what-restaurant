@@ -8,7 +8,8 @@ espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.3.1"
 activity-compose = "1.5.1"
 compose-bom = "2022.10.00"
-hilt-version = "2.44"
+hilt-version = "2.45"
+ktor-version = "2.2.4"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -27,6 +28,11 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 hilt-core = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-version" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-version" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor-version" }
+ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor-version" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor-version" }
+ktor-client-gson = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktor-version" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor-version" }
 
 
 [plugins]
@@ -35,4 +41,11 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 com-google-dagger-hilt-android =  { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
 
 [bundles]
+ktor-client = [
+    "ktor-client-android",
+    "ktor-client-serialization",
+    "ktor-client-logging",
+    "ktor-client-gson",
+    "ktor-client-content-negotiation"
+]
 
