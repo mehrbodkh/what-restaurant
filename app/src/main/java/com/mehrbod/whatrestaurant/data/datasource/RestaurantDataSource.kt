@@ -15,5 +15,5 @@ data class Restaurant(
 )
 
 interface RestaurantDataSource {
-    suspend fun getRestaurants(): RestaurantsResponse
+    suspend fun getRestaurants(postcode: String): RestaurantsResponse
 }

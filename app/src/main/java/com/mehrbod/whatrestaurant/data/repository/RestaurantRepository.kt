@@ -7,6 +7,6 @@ class RestaurantRepository @Inject constructor(
     private val dataSource: RestaurantDataSource
 ) {
 
-    suspend fun getRestaurants() = dataSource.getRestaurants()
+    suspend fun getRestaurants(postcode: String) = dataSource.getRestaurants(postcode)
 
 }

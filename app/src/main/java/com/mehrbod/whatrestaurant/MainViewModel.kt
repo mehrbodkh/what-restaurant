@@ -16,13 +16,15 @@ data class UiState(
 )
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: RestaurantRepository) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val repository: RestaurantRepository
+) : ViewModel() {
     val state = MutableStateFlow(UiState())
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             state.update {
-                it.copy(restaurants = repository.getRestaurants())
+                it.copy(restaurants = repository.getRestaurants("ec4m"))
             }
         }
     }

@@ -10,8 +10,13 @@ import javax.inject.Inject
 class RemoteRestaurantDataSource @Inject constructor(
     private val client: HttpClient
 ) : RestaurantDataSource {
-    override suspend fun getRestaurants() = withContext(Dispatchers.IO) {
-        client.get("https://uk.api.just-eat.io/restaurants/bypostcode/ec4m")
+    override suspend fun getRestaurants(postcode: String) = withContext(Dispatchers.IO) {
+        client.get("https://$HOST/$PATH/$postcode")
             .body<RestaurantsResponse>()
+    }
+
+    companion object {
+        private const val HOST = "uk.api.just-eat.io/"
+        private const val PATH = "restaurants/bypostcode"
     }
 }
