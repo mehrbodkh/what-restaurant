@@ -17,6 +17,8 @@ junit = "5.9.2"
 coreTesting = "2.2.0"
 coroutines = "1.6.4"
 junit-plugin = "1.8.2.1"
+glide-version = "1.0.0-alpha.1"
+coil = "2.3.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -55,6 +57,10 @@ junit-vintage = { group = "org.junit.vintage", name = "junit-vintage-engine", ve
 android-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
 coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+coil-gif = { group = "io.coil-kt", name = "coil-gif", version.ref = "coil"}
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil"}
+
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
@@ -81,4 +87,10 @@ unit-test = [
     "android-core-testing",
     "coroutine-test",
     "ktor-client-mock"
+]
+
+coil = [
+    "coil-compose",
+    "coil-gif",
+    "coil"
 ]

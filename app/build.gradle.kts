@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.hilt.core)
     implementation(libs.bundles.ktor.client)
+    implementation(libs.bundles.coil)
     kapt(libs.hilt.compiler)
     testImplementation(libs.bundles.unit.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
