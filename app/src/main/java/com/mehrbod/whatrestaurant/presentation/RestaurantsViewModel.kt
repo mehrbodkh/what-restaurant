@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed interface UiState {
+    object Idle : UiState
     object Loading : UiState
     data class Loaded(val restaurants: List<Restaurant>) : UiState
     data class Error(val message: String) : UiState
@@ -22,12 +23,14 @@ sealed interface UiState {
 class RestaurantsViewModel @Inject constructor(
     private val useCase: RestaurantsUseCase
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Idle)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    init {
+    fun updatePostcode(postcode: String) {
+        _uiState.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = useCase("ec4m")) {
+            when (val result = useCase(postcode)) {
                 is RestaurantsUseCase.Response.Failure -> {
                     _uiState.value = UiState.Error(result.message)
                 }
