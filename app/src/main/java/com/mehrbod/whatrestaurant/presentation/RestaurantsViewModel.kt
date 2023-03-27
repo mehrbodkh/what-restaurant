@@ -28,15 +28,19 @@ class RestaurantsViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     fun updatePostcode(postcode: String) {
-        _uiState.value = UiState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val result = useCase(postcode)) {
-                is RestaurantsUseCase.Response.Failure -> {
-                    _uiState.value = UiState.Error(result.message)
-                }
+        if (postcode.isEmpty()) {
+            _uiState.value = UiState.Idle
+        } else {
+            _uiState.value = UiState.Loading
+            viewModelScope.launch(Dispatchers.IO) {
+                when (val result = useCase(postcode)) {
+                    is RestaurantsUseCase.Response.Failure -> {
+                        _uiState.value = UiState.Error(result.message)
+                    }
 
-                is RestaurantsUseCase.Response.Success -> {
-                    _uiState.value = UiState.Loaded(result.restaurants)
+                    is RestaurantsUseCase.Response.Success -> {
+                        _uiState.value = UiState.Loaded(result.restaurants)
+                    }
                 }
             }
         }
