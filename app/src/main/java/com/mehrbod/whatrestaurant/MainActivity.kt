@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.mehrbod.whatrestaurant.presentation.MainViewModel
+import com.mehrbod.whatrestaurant.presentation.RestaurantsViewModel
 import com.mehrbod.whatrestaurant.presentation.RestaurantsScreen
 import com.mehrbod.whatrestaurant.presentation.theme.WhatRestaurantTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<RestaurantsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

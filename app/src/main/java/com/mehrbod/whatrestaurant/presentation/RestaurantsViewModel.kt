@@ -7,32 +7,33 @@ import com.mehrbod.whatrestaurant.domain.RestaurantsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class UiState(
-    val isLoading: Boolean,
-    val restaurants: List<Restaurant>? = null,
-    val errorMessage: String? = null,
-)
+sealed interface UiState {
+    object Loading : UiState
+    data class Loaded(val restaurants: List<Restaurant>) : UiState
+    data class Error(val message: String) : UiState
+}
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class RestaurantsViewModel @Inject constructor(
     private val useCase: RestaurantsUseCase
 ) : ViewModel() {
-    val state = MutableStateFlow(UiState(true))
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = useCase("ec4m")) {
                 is RestaurantsUseCase.Response.Failure -> {
-                    state.update { it.copy(isLoading = false, errorMessage = result.message) }
+                    _uiState.value = UiState.Error(result.message)
                 }
+
                 is RestaurantsUseCase.Response.Success -> {
-                    state.update {
-                        it.copy(isLoading = false, restaurants = result.restaurants)
-                    }
+                    _uiState.value = UiState.Loaded(result.restaurants)
                 }
             }
         }

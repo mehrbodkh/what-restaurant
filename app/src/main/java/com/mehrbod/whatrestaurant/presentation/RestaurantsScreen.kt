@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.GifDecoder
@@ -42,9 +43,9 @@ import com.mehrbod.whatrestaurant.data.datasource.model.Restaurant
 
 @Composable
 fun RestaurantsScreen(
-    viewModel: MainViewModel
+    viewModel: RestaurantsViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     var text by remember {
         mutableStateOf("")
     }
@@ -54,15 +55,17 @@ fun RestaurantsScreen(
             .imePadding()
     ) { _ ->
         Column {
-            if (state.isLoading) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-            }
             SearchBar(text) { text = it }
-            state.errorMessage?.let {
-                Text(text = it, modifier = Modifier.fillMaxSize())
-            }
-            state.restaurants?.let {
-                RestaurantsList(restaurants = it)
+            when (state) {
+                is UiState.Loading -> {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                }
+                is UiState.Error -> {
+                    Text(text = (state as UiState.Error).message, modifier = Modifier.fillMaxSize())
+                }
+                is UiState.Loaded -> {
+                    RestaurantsList(restaurants = (state as UiState.Loaded).restaurants)
+                }
             }
         }
     }
